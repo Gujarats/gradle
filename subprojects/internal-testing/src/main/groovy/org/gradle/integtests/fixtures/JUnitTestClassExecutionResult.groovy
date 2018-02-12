@@ -52,7 +52,7 @@ class JUnitTestClassExecutionResult implements TestClassExecutionResult {
         assert testClassNode.@errors == errors
         this
     }
-    
+
     TestClassExecutionResult assertTestCount(int tests, int skipped, int failures, int errors) {
         assert testClassNode.@tests == tests
         assert testClassNode.@skipped == skipped
@@ -100,14 +100,14 @@ class JUnitTestClassExecutionResult implements TestClassExecutionResult {
     }
 
     TestClassExecutionResult assertTestSkipped(String name) {
-        throw new UnsupportedOperationException()
+        assertTestsSkipped(name)
     }
 
     TestClassExecutionResult assertTestsSkipped(String... testNames) {
         Map<String, Node> testMethods = findTests().findAll { name, element ->
             element."skipped".size() > 0 // Include only skipped test.
         }
-        
+
         Assert.assertThat(testMethods.keySet(), Matchers.equalTo(testNames as Set))
         this
     }
